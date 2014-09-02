@@ -1,5 +1,5 @@
-ducking-octo-tribble
-====================
+bearded-tyrion
+==============
 
 I was looking for the least complicated wiki that could be dropped into a Tomcat and ran off of markdown files. Hopefully, this will be that project.
 
