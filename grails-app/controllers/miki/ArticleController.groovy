@@ -1,6 +1,5 @@
 package miki
 
-<<<<<<< HEAD
 class ArticleController {
 
     def index( )
@@ -24,19 +23,9 @@ class ArticleController {
     {
         String title = params.file
         def repo = Repository.list( )
-        def content
+        def content = []
         new File( repo[0].location + "/" + title ).eachLine { line -> content += line }
 
         [title: title, body: content]
     }
 }
-=======
-class ArticleController
-{
-	def index() 
-	{
-		def articles = Article.list()
-		[articles:articles]
-	}
-}
->>>>>>> 3ee12a969d1b3261e4309c13ffbfd458d9843e82
