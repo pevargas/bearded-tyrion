@@ -24,7 +24,11 @@ class ArticleController {
         String title = params.file
         def repo = Repository.list( )
         def content = []
-        new File( repo[0].location + "/" + title ).eachLine { line -> content += line }
+        new File( repo[0].location + "/" + title ).eachLine
+        { 
+            line -> 
+            content += line
+        }
 
         [title: title, body: content]
     }
