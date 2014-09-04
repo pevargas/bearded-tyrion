@@ -1,5 +1,7 @@
 package miki
 
+import com.github.rjeschke.txtmark.*
+
 class ArticleController {
 
     def index( )
@@ -13,7 +15,9 @@ class ArticleController {
         def repo = Repository.list( )
         
         def result = [ ]
-        new File( repo[0].location ).eachFile( ) { file->
+        new File( repo[0].location ).eachFile( )
+        { 
+            file->
             result += file.getName( )
         }
         [articles: result]
@@ -23,13 +27,15 @@ class ArticleController {
     {
         String title = params.file
         def repo = Repository.list( )
-        def content = []
+        def content = ""
         new File( repo[0].location + "/" + title ).eachLine
         { 
             line -> 
-            content += line
+            content += line + "\r\n"
         }
 
-        [title: title, body: content]
+        def result = Processor.process( content )
+
+        [title: title, body: result]
     }
 }
