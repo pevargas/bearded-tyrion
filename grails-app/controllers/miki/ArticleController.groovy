@@ -27,8 +27,9 @@ class ArticleController {
     {
         String title = params.file
         def repo = Repository.list( )[0].location
+        def filename = repo + "/" + title
         def corpus = ""
-        new File( repo + "/" + title ).eachLine
+        new File( filename ).eachLine
         { 
             line -> 
             corpus += line + "\r\n"
@@ -43,8 +44,9 @@ class ArticleController {
     {
         String title = params.file
         def repo = Repository.list( )[0].location
+        def filename = repo + "/" + title
         def corpus = ""
-        new File( repo + "/" + title ).eachLine
+        new File( filename ).eachLine
         {
             line ->
             corpus += line + "\r\n"
@@ -57,7 +59,8 @@ class ArticleController {
     {
         String title = params.file
         def repo = Repository.list( )[0].location
-        new File( repo + "/" + title ).withWriter
+        def filename = repo + "/" + title
+        new File( filename ).withWriter
         { 
             out ->
             out.writeLine( params.content )
