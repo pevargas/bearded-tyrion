@@ -20,6 +20,12 @@
 	</head>
 	<body>
 		<div id="grailsLogo" role="banner"><a href="http://grails.org"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></a></div>
+		<g:if test="${flash.error}">
+		  <div class="alert alert-error" style="display: block">${flash.error}</div>
+		</g:if>
+		<g:if test="${flash.message}">
+		  <div class="message" style="display: block">${flash.message}</div>
+		</g:if>
 		<g:layoutBody/>
 		<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>

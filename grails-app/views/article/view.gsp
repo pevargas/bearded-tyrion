@@ -1,16 +1,17 @@
-<%@ page import="com.github.rjeschke.txtmark.*" %>
-
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta name="layout" content="main"/>
-		<title>Article</title>
-	</head>
-	<body>
-		<header>
-			<h1>${title}</h1>
-		</header>
-		<article>${ raw( body ) }</article>
+   <head>
+      <meta name="layout" content="main"/>
+      <title>Article</title>
+   </head>
+   <body>
+      <header>
+         <h1>${title}</h1>
+      </header>
+      <article>
+         <aside><g:link action="edit" params="[file:title]">Edit</g:link></aside>
+         ${ raw( content ) }
+      </article>
 
-	</body>
+   </body>
 </html>

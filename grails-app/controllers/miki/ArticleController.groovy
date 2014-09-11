@@ -4,18 +4,18 @@ import com.github.rjeschke.txtmark.*
 
 class ArticleController {
 
-    def index( )
+    def location( )
     {
-        def repo = Repository.list( )
-        render repo[0].location
+        def repo = Repository.list( )[0].location
+        render repo
     }
 
-    def list( )
+    def index( )
     {
-        def repo = Repository.list( )
+        def repo = Repository.list( )[0].location
         
         def result = [ ]
-        new File( repo[0].location ).eachFile( )
+        new File( repo ).eachFile( )
         { 
             file->
             result += file.getName( )
@@ -26,16 +26,43 @@ class ArticleController {
     def view( )
     {
         String title = params.file
-        def repo = Repository.list( )
-        def content = ""
-        new File( repo[0].location + "/" + title ).eachLine
+        def repo = Repository.list( )[0].location
+        def corpus = ""
+        new File( repo + "/" + title ).eachLine
         { 
             line -> 
-            content += line + "\r\n"
+            corpus += line + "\r\n"
         }
 
-        def result = Processor.process( content )
+        def result = Processor.process( corpus )
 
-        [title: title, body: result]
+        [title: title, content: result]
+    }
+
+    def edit( )
+    {
+        String title = params.file
+        def repo = Repository.list( )[0].location
+        def corpus = ""
+        new File( repo + "/" + title ).eachLine
+        {
+            line ->
+            corpus += line + "\r\n"
+        }
+
+        [title: title, content: corpus]
+    }
+
+    def save( )
+    {
+        String title = params.file
+        def repo = Repository.list( )[0].location
+        new File( repo + "/" + title ).withWriter
+        { 
+            out ->
+            out.writeLine( params.content )
+        }
+        flash.message = title + " has been updated!"
+        redirect( action: "view", params: [file: title] )
     }
 }
