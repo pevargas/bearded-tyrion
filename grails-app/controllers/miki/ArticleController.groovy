@@ -40,7 +40,7 @@ class ArticleController {
         [title: title, content: result]
     }
 
-    def edit( )
+    def update( )
     {
         String title = params.file
         def repo = Repository.list( )[0].location
@@ -67,5 +67,12 @@ class ArticleController {
         }
         flash.message = title + " has been updated!"
         redirect( action: "view", params: [file: title] )
+    }
+
+    def create( )
+    {
+        String filename = new Date().format("yyyy-MM-dd")
+        filename += ".md"
+        [title: filename]
     }
 }

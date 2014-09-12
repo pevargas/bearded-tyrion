@@ -18,11 +18,11 @@
     </header>
     <article>
       <g:form action="save">
-        <g:textField name="file" value="${title}" hidden="hidden"/>
+        <g:textField name="file" value="${title}"/>
         <g:link action="index">Home</g:link>
         <g:link action="view" params="[file:title]">Cancel</g:link>
         <g:submitButton name="save" value="Save" />
-        <g:textArea name="content" value="${ content }"/>
+        <g:textArea name="content"/>
       </g:form>
     </article>
 
