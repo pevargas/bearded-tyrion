@@ -60,18 +60,16 @@ class ArticleController {
         String title = params.file
         def repo = Repository.list( )[0].location
         def filename = repo + "/" + title
-        new File( filename ).withWriter
-        { 
-            out ->
-            out.writeLine( params.content )
-        }
+        def fh = new File( filename )
+        fh << params.content
+
         flash.message = title + " has been updated!"
         redirect( action: "view", params: [file: title] )
     }
 
     def create( )
     {
-        String filename = new Date().format("yyyy-MM-dd")
+        String filename = new Date().format("yyyy_MM_dd")
         filename += ".md"
         [title: filename]
     }
