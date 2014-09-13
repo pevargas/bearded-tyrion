@@ -1,8 +1,14 @@
 package miki
 
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 import com.github.rjeschke.txtmark.*
 
 class ArticleController {
+
+    def createDate = "miki.dateCreated="
+    def updateDate = "miki.lastUpdated="
+    def tagList    = "miki.tags="
 
     def location( )
     {
@@ -25,9 +31,16 @@ class ArticleController {
 
     def create( )
     {
-        String filename = new Date().format("yyyy_MM_dd")
+        String filename = new Date().format("yyyy_MM_dd_HH_mm_ss")
         filename += ".md"
-        [title: filename]
+
+        def timestamp = new Date().format("yyyy/MM/dd HH:mm:ss")
+        def created = createDate + timestamp
+        def updated = updateDate + timestamp
+        def tags = tagList + "dumb, ass, slut bag, bitch, hoe"
+        def config = created + "\n" + updated + "\n" + tags + "\n"
+
+        [title: filename, content: config ]
     }
 
     def view( )
@@ -35,16 +48,34 @@ class ArticleController {
         String title = params.file
         def repo = Repository.list( )[0].location
         def filename = repo + "/" + title
+        def fh = new File( filename )
+
         def corpus = ""
-        new File( filename ).eachLine
+        def created, updated, tags
+        fh.eachLine
         { 
             line -> 
-            corpus += line + "\r\n"
+            if ( line =~ createDate )
+            {
+                created = line.substring( createDate.length() )
+            }
+            else if ( line =~ updateDate )
+            {
+                updated = line.substring( createDate.length() )
+            }
+            else if ( line =~ tagList )
+            {
+                tags = line.substring( tagList.length() ).tokenize( "," )
+            }
+            else
+            {
+                corpus += line + "\r\n"
+            }
         }
 
         def result = Processor.process( corpus )
 
-        [title: title, content: result]
+        [title: title, content: result, created: created, updated: updated, tags: tags]
     }
 
     def update( )
@@ -53,13 +84,29 @@ class ArticleController {
         def repo = Repository.list( )[0].location
         def filename = repo + "/" + title
         def corpus = ""
+        def created, updated, tags
         new File( filename ).eachLine
         {
-            line ->
-            corpus += line + "\r\n"
+            line -> 
+            if ( line =~ createDate )
+            {
+                created = line.substring( createDate.length() )
+            }
+            else if ( line =~ updateDate )
+            {
+                updated = line.substring( createDate.length() )
+            }
+            else if ( line =~ tagList )
+            {
+                tags = line.substring( tagList.length() ).tokenize( "," )
+            }
+            else
+            {
+                corpus += line + "\r\n"
+            }
         }
 
-        [title: title, content: corpus]
+        [title: title, content: corpus, created: created, updated: updated, tags: tags]
     }
 
     def save( )
@@ -77,6 +124,9 @@ class ArticleController {
         new File( filename ).withWriter( )
         {
             out ->
+            out.writeLine( createDate + params.created )
+            out.writeLine( updateDate + new Date().format("yyyy/MM/dd HH:mm:ss") )
+            out.writeLine( tagList + params.tags )
             out.writeLine( params.content )
         }
 
