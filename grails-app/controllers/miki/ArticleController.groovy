@@ -35,12 +35,8 @@ class ArticleController {
         filename += ".md"
 
         def timestamp = new Date().format("yyyy/MM/dd HH:mm:ss")
-        def created = createDate + timestamp
-        def updated = updateDate + timestamp
-        def tags = tagList + "dumb, ass, slut bag, bitch, hoe"
-        def config = created + "\n" + updated + "\n" + tags + "\n"
-
-        [title: filename, content: config ]
+        
+        [title: filename, created: timestamp, tags: "these, are, example, tags"]
     }
 
     def view( )

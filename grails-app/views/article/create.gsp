@@ -20,8 +20,10 @@
       <g:form action="save">
         <g:textField name="file" value="${title}"/>
         <g:link action="index">Home</g:link>
-        <g:link action="view" params="[file:title]">Cancel</g:link>
+        <g:link action="index">Cancel</g:link>
         <g:submitButton name="save" value="Save" />
+        <p><b>Tags</b> <g:textField name="tags" value="${ tags }" />
+        <g:textField name="created" value="${ created }" hidden="hidden"/>
         <g:textArea name="content" value="${ content }"/>
       </g:form>
     </article>
