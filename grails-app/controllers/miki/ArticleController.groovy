@@ -23,6 +23,13 @@ class ArticleController {
         [articles: result]
     }
 
+    def create( )
+    {
+        String filename = new Date().format("yyyy_MM_dd")
+        filename += ".md"
+        [title: filename]
+    }
+
     def view( )
     {
         String title = params.file
@@ -58,8 +65,15 @@ class ArticleController {
     def save( )
     {
         String title = params.file
+        if ( ! ( title =~ /\.md/ ) )
+        {
+            title += ".md"
+        }
+        title = title.replaceAll( "\\s", "_" )
+
         def repo = Repository.list( )[0].location
         def filename = repo + "/" + title
+
         def fh = new File( filename )
         fh << params.content
 
@@ -67,10 +81,14 @@ class ArticleController {
         redirect( action: "view", params: [file: title] )
     }
 
-    def create( )
+    def delete( )
     {
-        String filename = new Date().format("yyyy_MM_dd")
-        filename += ".md"
-        [title: filename]
+        String title = params.file
+        def repo = Repository.list( )[0].location
+        def filename = repo + "/" + title
+        new File( filename ).delete()
+
+        flash.message = title + " has been removed."
+        redirect( action: "index", params: [file: title] )
     }
 }

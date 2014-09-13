@@ -21,6 +21,7 @@
         <g:textField name="file" value="${title}" />
         <g:link action="index">Home</g:link>
         <g:link action="create">New</g:link>
+        <g:link action="delete" params="[file:title]">Remove</g:link>
         <g:link action="view" params="[file:title]">Cancel</g:link>
         <g:submitButton name="save" value="Save" />
         <g:textArea name="content" value="${ content }"/>

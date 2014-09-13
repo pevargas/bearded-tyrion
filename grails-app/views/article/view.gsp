@@ -13,6 +13,7 @@
             <g:link action="index">Home</g:link>
             <g:link action="create">New</g:link>
             <g:link action="update" params="[file:title]">Edit</g:link>
+            <g:link action="delete" params="[file:title]">Remove</g:link>
          </aside>
          ${ raw( content ) }
       </article>
