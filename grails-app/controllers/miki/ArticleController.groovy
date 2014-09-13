@@ -74,8 +74,11 @@ class ArticleController {
         def repo = Repository.list( )[0].location
         def filename = repo + "/" + title
 
-        def fh = new File( filename )
-        fh << params.content
+        new File( filename ).withWriter( )
+        {
+            out ->
+            out.writeLine( params.content )
+        }
 
         flash.message = title + " has been updated!"
         redirect( action: "view", params: [file: title] )
