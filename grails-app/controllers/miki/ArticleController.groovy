@@ -4,8 +4,8 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 import com.github.rjeschke.txtmark.*
 
-class ArticleController {
-
+class ArticleController
+{
     def createDate = "miki.dateCreated="
     def updateDate = "miki.lastUpdated="
     def tagList    = "miki.tags="
