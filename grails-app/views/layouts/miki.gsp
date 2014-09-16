@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <title><g:layoutTitle default="An example decorator" /></title>
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
+        <link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
         <g:layoutHead />
         <r:layoutResources />
     </head>
