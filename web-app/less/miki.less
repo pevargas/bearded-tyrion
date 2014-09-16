@@ -18,13 +18,12 @@ body
    padding: 0px;
 }
 
-.container
+article
 {
-   margin: 0px auto;
-   width: 1024px;
+   padding: 1em;
 }
 
-header
+header, footer
 {
    background-color: @clr-primary;
    padding: 1em;
@@ -34,19 +33,22 @@ header
    }
 }
 
-footer {
-   background-color: @clr-secondary;
-   padding: 1em;
+footer
+{
+   height: 100%;
 }
 
+.container
+{
+   margin: 0px auto;
+   width: 1024px;
+}
+///////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
 #logo
 {
    float: left;
-}
-
-article
-{
-   padding: 1em;
 }
 
 .alert
@@ -54,6 +56,23 @@ article
    color: @clr-primary;
    border: 1px solid @clr-primary;
    padding: 0.5em;
+}
+
+a, a:link
+{
+   text-decoration: none;
+   border-bottom: 1px solid @clr-accent;
+   color: @clr-accent;
+   // background-color: fade(@clr-white, 90%);
+   &:hover
+   {
+      color: lighten(@clr-accent, 20%);
+      border-bottom: none;
+   }
+   &:visited
+   {
+      color: darken(@clr-accent, 10%);
+   }
 }
 
 textarea
