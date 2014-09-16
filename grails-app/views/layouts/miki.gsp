@@ -11,11 +11,12 @@
 
       <header>
          <div class="container">
-           <g:link controller="tracker">
-            <img src="${resource(dir: 'images', file: 'grails_logo.png')}" id="logo" alt="Grails Logo"/>
-           </g:link>
-           <h1><g:layoutTitle default="An example decorator" /></h1>
-           <menu>
+            <g:link controller="article">
+               <i class="idocument"></i>
+               %{-- <img src="${resource(dir: 'images', file: 'grails_logo.png')}" id="logo" alt="Grails Logo"/> --}%
+            </g:link>
+            <h1><g:layoutTitle default="An example decorator" /></h1>
+            <menu>
                <li><g:link action="index">Home</g:link></li>
                <li><g:link action="create">New</g:link></li>
                <g:if test="${ params.file != null }" >

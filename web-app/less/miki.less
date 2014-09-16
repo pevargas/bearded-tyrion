@@ -1,9 +1,13 @@
+///////////////////////////////////////////////////////////////////////////////
+// Colors
 @clr-primary: #00A5C9;
 @clr-secondary: #0073C9;
 @clr-white: #F0FCFF;
 @clr-black: #000405;
 @clr-accent: #C90041;
+///////////////////////////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////////////////////
 body 
 {
    font-family: Helvetica, Arial, sans-serif;
@@ -24,6 +28,13 @@ article
    padding: 1em;
 }
 
+.alert
+{
+   color: @clr-primary;
+   border: 1px solid @clr-primary;
+   padding: 0.5em;
+}
+
 textarea
 {
    width: 100%;
@@ -31,3 +42,36 @@ textarea
    display: block;
    font-family: monospace;
 }
+///////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+// Icons
+i {
+   height: 60px;
+   width:  60px;
+   display: block;
+}
+
+.imenu, .iuser, .idocument, .iconsole, .igraph, .irecord, .itam, .ilinks, .ipvlogo, 
+#imenu, #iuser, #idocument, #iconsole, #igraph, #irecord, #itam, #ilinks, #ipvlogo, 
+.iemail, .iphone, .igit, .istack, .ilinked, #iemail, #iphone, #igit, #istack, #ilinked, i {
+  background-image:  url( '../images/icons.png' );
+  background-size:   360px;
+  background-repeat: no-repeat;
+}
+
+.imenu,     #imenu     { background-position:    0px    0px; }
+.irecord,   #irecord   { background-position:  -60px    0px; }
+.iuser,     #iuser     { background-position: -120px    0px; }
+.idocument, #idocument { background-position: -180px    0px; }
+.iconsole,  #iconsole  { background-position: -240px    0px; }
+.igraph,    #igraph    { background-position: -300px    0px; }
+.itam,      #itam      { background-position:    0px  -60px; }
+.ilinks,    #ilinks    { background-position:  -60px  -60px; }
+.ipvlogo,   #ipvlogo   { background-position: -120px  -60px; }
+.iemail,    #iemail    { background-position: -180px  -60px; }
+.iphone,    #iphone    { background-position: -240px  -60px; }
+.igit,      #igit      { background-position: -300px  -60px; }
+.istack,    #istack    { background-position:    0px -120px; }
+.ilinked,   #ilinked   { background-position:  -60px -120px; }
+///////////////////////////////////////////////////////////////////////////////
