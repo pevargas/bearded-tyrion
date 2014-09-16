@@ -5,8 +5,14 @@ class BootStrap
 	def init = { servletContext ->
 		if ( Repository.count() == 0 )
 		{
-			//new Repository( location: "P:/GitHub/articles" ).save()
-			new Repository( location: "/Users/pevargas90/Documents/Journal" ).save()
+			if ( System.properties['os.name'].toLowerCase().contains( "windows" ) )
+			{
+				new Repository( location: "P:/GitHub/articles" ).save()
+			}
+			else
+			{
+				new Repository( location: "/Users/pevargas90/Documents/Journal" ).save()
+			}
 		}
 	}
 	def destroy = {
