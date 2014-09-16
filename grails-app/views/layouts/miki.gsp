@@ -16,14 +16,16 @@
                %{-- <img src="${resource(dir: 'images', file: 'grails_logo.png')}" id="logo" alt="Grails Logo"/> --}%
             </g:link>
             <h1><g:layoutTitle default="An example decorator" /></h1>
-            <menu>
-               <li><g:link action="index">Home</g:link></li>
-               <li><g:link action="create">New</g:link></li>
-               <g:if test="${ params.file != null }" >
-                  <li><g:link action="update" params="[file:title]">Edit</g:link></li>
-                  <li><g:link action="delete" params="[file:title]">Remove</g:link></li>
-               </g:if>
-            </menu>
+            <nav>
+               <menu>
+                  <li><g:link action="index">Home</g:link></li>
+                  <li><g:link action="create">New</g:link></li>
+                  <g:if test="${ params.file != null }" >
+                     <li><g:link action="update" params="[file:title]">Edit</g:link></li>
+                     <li><g:link action="delete" params="[file:title]">Remove</g:link></li>
+                  </g:if>
+               </menu>
+            </nav>
          </div>
       </header>
 
