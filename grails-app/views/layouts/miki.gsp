@@ -3,6 +3,7 @@
    <head>
       <title><g:layoutTitle default="An example decorator" /></title>
       <link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
+      <r:require module="miki" />
       <g:layoutHead />
       <r:layoutResources />
    </head>

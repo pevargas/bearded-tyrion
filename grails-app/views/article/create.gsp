@@ -3,14 +3,6 @@
 <head>
    <meta name="layout" content="miki"/>
    <title>${ title }</title>
-   <style type="text/css">
-      textarea {
-         width: 100%;
-         height: 30em;
-         display: block;
-         font-family: monospace;
-      }
-   </style>
 </head>
 <body>
    <g:form action="save">
@@ -23,6 +15,5 @@
       <g:textField name="created" value="${ created }" hidden="hidden"/>
       <g:textArea name="content" value="${ content }"/>
    </g:form>
-
 </body>
 </html>
