@@ -8,6 +8,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
+// Containing elements
 body 
 {
    font-family: Helvetica, Arial, sans-serif;
@@ -17,10 +18,30 @@ body
    padding: 0px;
 }
 
+.container
+{
+   margin: 0px auto;
+   width: 1024px;
+}
+
 header
 {
    background-color: @clr-primary;
    padding: 1em;
+   h1 
+   {
+      height: 30px;
+   }
+}
+
+footer {
+   background-color: @clr-secondary;
+   padding: 1em;
+}
+
+#logo
+{
+   float: left;
 }
 
 article
@@ -46,15 +67,19 @@ textarea
 
 ///////////////////////////////////////////////////////////////////////////////
 // Icons
-i {
+i
+{
    height: 60px;
    width:  60px;
-   display: block;
+   display: inline-block;
+   margin: 0.5em;
+   padding: 0em;
 }
 
 .imenu, .iuser, .idocument, .iconsole, .igraph, .irecord, .itam, .ilinks, .ipvlogo, 
 #imenu, #iuser, #idocument, #iconsole, #igraph, #irecord, #itam, #ilinks, #ipvlogo, 
-.iemail, .iphone, .igit, .istack, .ilinked, #iemail, #iphone, #igit, #istack, #ilinked, i {
+.iemail, .iphone, .igit, .istack, .ilinked, #iemail, #iphone, #igit, #istack, #ilinked, i
+{
   background-image:  url( '../images/icons.png' );
   background-size:   360px;
   background-repeat: no-repeat;

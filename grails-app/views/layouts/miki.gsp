@@ -12,7 +12,7 @@
       <header>
          <div class="container">
             <g:link controller="article">
-               <i class="idocument"></i>
+               <i class="idocument" id="logo"></i>
                %{-- <img src="${resource(dir: 'images', file: 'grails_logo.png')}" id="logo" alt="Grails Logo"/> --}%
             </g:link>
             <h1><g:layoutTitle default="An example decorator" /></h1>
@@ -33,9 +33,18 @@
                <aside class="alert"><b>${ new Date() }:</b> ${ flash.message }</aside>
             </div>
          </g:if>
-         <g:layoutBody />
+         <div class="container">
+            <g:layoutBody />
+         </div>
          <r:layoutResources />
       </article>
 
+      <footer>
+         <div class="container">
+            <menu>
+               <li>&copy; <g:formatDate format="yyyy" date="${ new Date() }" /> <a href="http://www.vargascorpus.com/">Patrick E. Vargas</a></li>
+            </menu>
+         </div>
+      </footer>
    </body>
 </html>
