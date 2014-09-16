@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="layout" content="main"/>
+    <meta name="layout" content="miki"/>
     <title>Article</title>
     <style type="text/css">
       textarea {
