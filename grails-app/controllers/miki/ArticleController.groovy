@@ -35,8 +35,9 @@ class ArticleController
         filename += ".md"
 
         def timestamp = new Date().format("yyyy/MM/dd HH:mm:ss")
-        
-        [title: filename, created: timestamp, tags: "these, are, example, tags"]
+        def content = "Today is a new day...";
+
+        [title: filename, content: content, created: timestamp, tags: "these, are, example, tags"]
     }
 
     def view( )
