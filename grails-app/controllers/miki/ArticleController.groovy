@@ -107,16 +107,29 @@ class ArticleController
 
     def save( )
     {
+        def repo = Repository.list( )[0].location
+        
+        String old = params.old
+        if ( ! ( old =~ /\.md/ ) )
+        {
+            old += ".md"
+        }
+        old = old.replaceAll( "\\s", "_" )
+        def oldfile = repo + "/" + old
+
+        // Remove the old file just in case we rename the file
+        new File( oldfile ).delete( )
+
+        // Grab the name of the file
         String title = params.file
         if ( ! ( title =~ /\.md/ ) )
         {
             title += ".md"
         }
         title = title.replaceAll( "\\s", "_" )
-
-        def repo = Repository.list( )[0].location
         def filename = repo + "/" + title
 
+        // Write the new content to the file
         new File( filename ).withWriter( )
         {
             out ->
@@ -126,6 +139,7 @@ class ArticleController
             out.writeLine( params.content )
         }
 
+        // Redirect to view the result
         flash.message = title + " has been updated!"
         redirect( action: "view", params: [file: title] )
     }

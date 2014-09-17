@@ -12,6 +12,7 @@
          <li><g:submitButton name="save" value="Save" /></li>
       </menu>
       <p><b>Created</b> ${ created } | <b>Last Updated</b> ${ updated } | <b>Tags</b> <g:textField name="tags" value="${ tags.join(',') }" /></p>
+      <g:textField name="old" value="${ title }" hidden="hidden"/>
       <g:textField name="created" value="${ created }" hidden="hidden"/>
       <g:textArea name="content" value="${ content }"/>
       </g:form>
