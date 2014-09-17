@@ -11,12 +11,14 @@ class ArticleController
     def updateDate = "miki.lastUpdated="
     def tagList    = "miki.tags="
 
+    // View the folder location
     def location( )
     {
         def repo = Repository.list( )[0].location
         render repo
     }
 
+    // List all the files in the directory
     def index( )
     {
         def repo = Repository.list( )[0].location
@@ -30,6 +32,7 @@ class ArticleController
         [articles: result]
     }
 
+    // Make a new file
     def create( )
     {
         String filename = new Date().format("yyyy_MM_dd_HH_mm_ss")
@@ -41,14 +44,16 @@ class ArticleController
         [title: filename, content: content, created: timestamp, tags: "these, are, example, tags"]
     }
 
+    // View specific file
     def view( )
     {
+        // Grab the file's full path
         def filename = articleService.fullPath( params.file )
-        def fh = new File( filename )
-
         def corpus = ""
         def created, updated, tags
-        fh.eachLine
+
+        // Separate the meta information form the content
+        new File( filename ).eachLine
         { 
             line -> 
             if ( line =~ createDate )
@@ -69,16 +74,22 @@ class ArticleController
             }
         }
 
+        // Convert the content from Markdown to HTML
         def result = Processor.process( corpus )
 
+        // Return
         [title: params.file, content: result, created: created, updated: updated, tags: tags]
     }
 
+    // Update the file
     def update( )
     {
+        // Grab the file's full path
         def filename = articleService.fullPath( params.file )
         def corpus = ""
         def created, updated, tags
+
+        // Separate the meta information from the content
         new File( filename ).eachLine
         {
             line -> 
@@ -100,9 +111,11 @@ class ArticleController
             }
         }
 
+        // Return
         [title: params.file, content: corpus, created: created, updated: updated, tags: tags]
     }
 
+    // Save the edited file
     def save( )
     {
         // Remove the old file just in case we rename the file
@@ -125,11 +138,14 @@ class ArticleController
         redirect( action: "view", params: [file: params.file] )
     }
 
+    // Remove the file
     def delete( )
     {
+        // Grab the file's full path
         def filename = articleService.fullPath( params.file )
         new File( filename ).delete()
 
+        // Send user back to the homepage
         flash.message = params.file + " has been removed."
         redirect( action: "index", params: [file: params.file] )
     }
