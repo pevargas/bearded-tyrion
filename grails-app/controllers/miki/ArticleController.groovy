@@ -6,6 +6,8 @@ import com.github.rjeschke.txtmark.*
 
 class ArticleController
 {
+    def articleService
+
     def createDate = "miki.dateCreated="
     def updateDate = "miki.lastUpdated="
     def tagList    = "miki.tags="
@@ -42,14 +44,10 @@ class ArticleController
 
     def view( )
     {
-        String title = params.file
-        def repo = Repository.list( )[0].location
-        def filename = repo + "/" + title
-        def fh = new File( filename )
-
+        def filename = articleService.fullPath( params.file )
         def corpus = ""
         def created, updated, tags
-        fh.eachLine
+        new File( filename ).eachLine
         { 
             line -> 
             if ( line =~ createDate )
@@ -72,14 +70,12 @@ class ArticleController
 
         def result = Processor.process( corpus )
 
-        [title: title, content: result, created: created, updated: updated, tags: tags]
+        [title: params.file, content: result, created: created, updated: updated, tags: tags]
     }
 
     def update( )
     {
-        String title = params.file
-        def repo = Repository.list( )[0].location
-        def filename = repo + "/" + title
+        def filename = articleService.fullPath( params.file )
         def corpus = ""
         def created, updated, tags
         new File( filename ).eachLine
@@ -103,34 +99,19 @@ class ArticleController
             }
         }
 
-        [title: title, content: corpus, created: created, updated: updated, tags: tags]
+        [title: params.file, content: corpus, created: created, updated: updated, tags: tags]
     }
 
     def save( )
     {
         def repo = Repository.list( )[0].location
-        
-        String old = params.old
-        if ( ! ( old =~ /\.md/ ) )
-        {
-            old += ".md"
-        }
-        old = old.replaceAll( "\\s", "_" )
-        def oldfile = repo + "/" + old
-
+ 
         // Remove the old file just in case we rename the file
+        def oldfile = articleService.fullPath( params.old )
         new File( oldfile ).delete( )
 
-        // Grab the name of the file
-        String title = params.file
-        if ( ! ( title =~ /\.md/ ) )
-        {
-            title += ".md"
-        }
-        title = title.replaceAll( "\\s", "_" )
-        def filename = repo + "/" + title
-
         // Write the new content to the file
+        def filename = articleService.fullPath( params.file )
         new File( filename ).withWriter( )
         {
             out ->
@@ -141,18 +122,16 @@ class ArticleController
         }
 
         // Redirect to view the result
-        flash.message = title + " has been updated!"
-        redirect( action: "view", params: [file: title] )
+        flash.message = params.file + " has been updated!"
+        redirect( action: "view", params: [file: params.file] )
     }
 
     def delete( )
     {
-        String title = params.file
-        def repo = Repository.list( )[0].location
-        def filename = repo + "/" + title
+        def filename = articleService.fullPath( params.file )
         new File( filename ).delete()
 
-        flash.message = title + " has been removed."
-        redirect( action: "index", params: [file: title] )
+        flash.message = params.file + " has been removed."
+        redirect( action: "index", params: [file: params.file] )
     }
 }
