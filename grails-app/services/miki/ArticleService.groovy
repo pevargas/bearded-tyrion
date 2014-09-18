@@ -49,4 +49,16 @@ class ArticleService
 
       return data
    }
+
+   def writeFile( filename, data )
+   {
+      new File( filename ).withWriter( )
+        {
+            file ->
+            file.writeLine( createDate + data.created )
+            file.writeLine( updateDate + new Date().format("yyyy/MM/dd HH:mm:ss") )
+            file.writeLine( tagList + data.tags )
+            file.writeLine( data.content )
+        }
+   }
 }

@@ -60,22 +60,13 @@ class ArticleController
 
     def save( )
     {
-        def repo = Repository.list( )[0].location
- 
         // Remove the old file just in case we rename the file
         def oldfile = articleService.fullPath( params.old )
         new File( oldfile ).delete( )
 
         // Write the new content to the file
         def filename = articleService.fullPath( params.file )
-        new File( filename ).withWriter( )
-        {
-            out ->
-            out.writeLine( createDate + params.created )
-            out.writeLine( updateDate + new Date().format("yyyy/MM/dd HH:mm:ss") )
-            out.writeLine( tagList + params.tags )
-            out.writeLine( params.content )
-        }
+        articleService.writeFile( filename, params )
 
         // Redirect to view the result
         flash.message = params.file + " has been updated!"
