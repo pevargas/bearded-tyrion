@@ -45,61 +45,17 @@ class ArticleController
     def view( )
     {
         def filename = articleService.fullPath( params.file )
-        def corpus = ""
-        def created, updated, tags
-        new File( filename ).eachLine
-        { 
-            line -> 
-            if ( line =~ createDate )
-            {
-                created = line.substring( createDate.length() )
-            }
-            else if ( line =~ updateDate )
-            {
-                updated = line.substring( createDate.length() )
-            }
-            else if ( line =~ tagList )
-            {
-                tags = line.substring( tagList.length() ).tokenize( "," )
-            }
-            else
-            {
-                corpus += line + "\r\n"
-            }
-        }
+        def data = articleService.parseFile( filename )
+        def result = Processor.process( data.content )
 
-        def result = Processor.process( corpus )
-
-        [title: params.file, content: result, created: created, updated: updated, tags: tags]
+        [title: params.file, content: result, created: data.created, updated: data.updated, tags: data.tags]
     }
 
     def update( )
     {
         def filename = articleService.fullPath( params.file )
-        def corpus = ""
-        def created, updated, tags
-        new File( filename ).eachLine
-        {
-            line -> 
-            if ( line =~ createDate )
-            {
-                created = line.substring( createDate.length() )
-            }
-            else if ( line =~ updateDate )
-            {
-                updated = line.substring( createDate.length() )
-            }
-            else if ( line =~ tagList )
-            {
-                tags = line.substring( tagList.length() ).tokenize( "," )
-            }
-            else
-            {
-                corpus += line + "\r\n"
-            }
-        }
-
-        [title: params.file, content: corpus, created: created, updated: updated, tags: tags]
+        def data = articleService.parseFile( filename )
+        [title: params.file, content: data.content, created: data.created, updated: data.updated, tags: data.tags]
     }
 
     def save( )
