@@ -2,7 +2,7 @@
 <html>
 <head>
    <meta name="layout" content="miki"/>
-   <title>${ title }</title>
+   <title>${ human }</title>
 </head>
 <body>
    <g:form action="save">

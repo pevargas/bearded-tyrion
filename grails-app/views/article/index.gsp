@@ -5,8 +5,8 @@
    <title>Articles</title>
 </head>
 <body>
-   <g:each in="${articles}" var="title">
-      <p><g:link action="view" params="[file: title]">${title}</g:link></p>
+   <g:each var="entry" in="${ articles }">
+      <p><g:link action="view" params="[ file: entry.filename ]">${ entry.human }</g:link></p>
    </g:each>
 </body>
 </html>

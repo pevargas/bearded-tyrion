@@ -6,6 +6,22 @@ class ArticleService
    def updateDate = "miki.lastUpdated="
    def tagList    = "miki.tags="
 
+   // Return the hard-coded directory to store the articles
+   def directory( )
+   {
+      def repo = Repository.list( )[0].location
+      return repo
+   }
+
+   // Convert the filename to something more legible
+   def humanTitle( filename )
+   {
+      def human = filename.replaceAll( "_", " " );
+      human = human.replaceAll( ".md", "" )
+      return human
+   }
+
+   // Convert the file name to a full path
    def fullPath( file )
    {
       def title = file
@@ -14,15 +30,13 @@ class ArticleService
          title += ".md"
       }
       title = title.replaceAll( "\\s", "_" )
-      def repo = Repository.list( )[0].location
-      def filename = repo + "/" + title
+      def filename = directory( ) + "/" + title
       return filename
    }
 
+   // Open the file and separate the meta data from the content
    def parseFile( filename )
    {
-      //def corpus = ""
-      //def created, updated, tags
       def data = [:]
       data.content = ""
 
@@ -50,6 +64,7 @@ class ArticleService
       return data
    }
 
+   // Write the content to a new file
    def writeFile( filename, data )
    {
       new File( filename ).withWriter( )

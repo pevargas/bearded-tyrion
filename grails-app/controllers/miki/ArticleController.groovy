@@ -7,27 +7,29 @@ import com.github.rjeschke.txtmark.*
 class ArticleController
 {
     def articleService
-    def createDate = "miki.dateCreated="
-    def updateDate = "miki.lastUpdated="
-    def tagList    = "miki.tags="
 
     // View the folder location
     def location( )
     {
-        def repo = Repository.list( )[0].location
-        render repo
+        // Grab the directory
+        render articleService.directory( )
     }
 
     // List all the files in the directory
     def index( )
     {
-        def repo = Repository.list( )[0].location
+        // Grab the directory
+        def repo = articleService.directory( )
         
+        // List all the files in the directory
         def result = [ ]
         new File( repo ).eachFile( )
         { 
             file->
-            result += file.getName( )
+            def entry = [:]
+            entry.filename = file.getName( )
+            entry.human = articleService.humanTitle( entry.filename )
+            result += entry
         }
         [articles: result]
     }
@@ -35,12 +37,17 @@ class ArticleController
     // Make a new file
     def create( )
     {
+        // Give the new file today's date
         String filename = new Date().format("yyyy_MM_dd_HH_mm_ss")
         filename += ".md"
 
+        // Make it human readable
         def timestamp = new Date().format("yyyy/MM/dd HH:mm:ss")
+        
+        // Put in some default text
         def content = "Today is a new day...";
 
+        // REturn information
         [title: filename, content: content, created: timestamp, tags: "these, are, example, tags"]
     }
 
@@ -49,11 +56,18 @@ class ArticleController
     {
         // Grab the file's full path
         def filename = articleService.fullPath( params.file )
+
+        // Grab a human-friendly filename
+        def human = articleService.humanTitle( params.file )
+        
         // Separate the meta information form the content
         def data = articleService.parseFile( filename )
+
+        // Convert Markdown to HTML
         def result = Processor.process( data.content )
 
-        [title: params.file, content: result, created: data.created, updated: data.updated, tags: data.tags]
+        // Return information
+        [title: params.file, human: human, content: result, created: data.created, updated: data.updated, tags: data.tags]
     }
 
     // Update the file
@@ -61,9 +75,15 @@ class ArticleController
     {
         // Grab the file's full path
         def filename = articleService.fullPath( params.file )
+        
+        // Grab a human-friendly filename
+        def human = articleService.humanTitle( params.file )
+
         // Separate the meta information from the content
         def data = articleService.parseFile( filename )
-        [title: params.file, content: data.content, created: data.created, updated: data.updated, tags: data.tags]
+        
+        // Return information
+        [title: params.file, human: human, content: data.content, created: data.created, updated: data.updated, tags: data.tags]
     }
 
     // Save the edited file

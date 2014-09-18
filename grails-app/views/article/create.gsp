@@ -2,7 +2,7 @@
 <html>
 <head>
    <meta name="layout" content="miki"/>
-   <title>${ title }</title>
+   <title>New File</title>
 </head>
 <body>
    <g:form action="save">
