@@ -1,0 +1,6 @@
+package miki
+
+class Article
+{
+  
+}

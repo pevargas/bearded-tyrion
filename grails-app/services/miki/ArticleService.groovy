@@ -1,7 +1,5 @@
 package miki
 
-import groovy.io.FileType
-
 class ArticleService
 {
    def createDate = "miki.dateCreated="
@@ -18,8 +16,9 @@ class ArticleService
    // Convert the filename to something more legible
    def humanTitle( filename )
    {
-      def human = filename.replaceAll( ".md", "" )
-      return human.replaceAll( "_", " " )
+      def human = filename.replaceAll( "_", " " );
+      human = human.replaceAll( ".md", "" )
+      return human
    }
 
    // Convert the file name to a full path
@@ -33,38 +32,6 @@ class ArticleService
       title = title.replaceAll( "\\s", "_" )
       def filename = directory( ) + "/" + title
       return filename
-   }
-
-   // List all the files in the directory
-   def listAll( )
-   {
-      def result = [:]
-      def repo = new File( directory( ) )
-      result = list( repo )
-
-      return result
-   }
-
-   def list( parent )
-   {
-      def folder = [:]
-      parent.eachFile( FileType.FILES )
-      {
-         file ->
-         if ( file =~ /\.md/ )
-         {
-            def entry = [:]
-            entry.filename = file.getName( )
-            entry.human = humanTitle( entry.filename )
-            folder[ ( entry.filename ) ] = entry.human
-         }
-      }
-      parent.eachFile( FileType.DIRECTORIES )
-      {
-         child -> 
-         folder[ ( child.getName( ) ) ] = list( child )
-      }
-      return folder
    }
 
    // Open the file and separate the meta data from the content

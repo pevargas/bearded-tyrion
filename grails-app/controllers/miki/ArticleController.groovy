@@ -17,9 +17,20 @@ class ArticleController
 
     // List all the files in the directory
     def index( )
-    {        
+    {
+        // Grab the directory
+        def repo = articleService.directory( )
+        
         // List all the files in the directory
-        def result = articleService.listAll( )
+        def result = [ ]
+        new File( repo ).eachFile( )
+        { 
+            file->
+            def entry = [:]
+            entry.filename = file.getName( )
+            entry.human = articleService.humanTitle( entry.filename )
+            result += entry
+        }
         [articles: result]
     }
 
@@ -44,7 +55,7 @@ class ArticleController
     def view( )
     {
         // Grab the file's full path
-        def filename = articleService.fullPath( params.dir + "/" + params.file )
+        def filename = articleService.fullPath( params.file )
 
         // Grab a human-friendly filename
         def human = articleService.humanTitle( params.file )

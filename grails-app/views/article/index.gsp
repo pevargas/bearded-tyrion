@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="miki"/>
-    <title>Articles</title>
+   <meta name="layout" content="miki"/>
+   <title>Articles</title>
 </head>
 <body>
-    <g:each var="parent" in="${ articles }">
-      <g:render template="step" model="[parent: parent]" />
-    </g:each>
+   <g:each var="entry" in="${ articles }">
+      <p><g:link action="view" params="[ file: entry.filename ]">${ entry.human }</g:link></p>
+   </g:each>
 </body>
 </html>

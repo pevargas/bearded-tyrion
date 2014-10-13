@@ -9,9 +9,13 @@ class BootStrap
 			{
 				new Repository( location: "P:/GitHub/articles" ).save()
 			}
-			else
+			else if ( System.properties['os.name'].toLowerCase().contains( "mac" ) )
 			{
 				new Repository( location: "/Users/pevargas90/Documents/Journal" ).save()
+			}
+			else
+			{
+				new Repository( location: "/home/pevargas90/journal" ).save()
 			}
 		}
 	}
